@@ -4,6 +4,9 @@ import 'package:contractus/screen/seller%20screen/seller%20home/my%20service/ser
 import 'package:contractus/screen/widgets/constant.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../../models/service.dart';
+import '../../../widgets/cards/myservicecard.dart';
+
 class MyServices extends StatefulWidget {
   const MyServices({Key? key}) : super(key: key);
 
@@ -51,133 +54,17 @@ class _MyServicesState extends State<MyServices> {
                       childAspectRatio: 0.75,
                       crossAxisCount: 2,
                       children: List.generate(
-                        10,
-                        (index) => GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              const ServiceDetails().launch(context);
-                            });
-                          },
-                          child: Container(
-                            height: 205,
-                            width: 156,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              border: Border.all(color: kBorderColorTextField),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: kDarkWhite,
-                                  blurRadius: 5.0,
-                                  spreadRadius: 2.0,
-                                  offset: Offset(0, 5),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                Stack(
-                                  alignment: Alignment.topRight,
-                                  children: [
-                                    Container(
-                                      height: 100,
-                                      width: 156,
-                                      decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(8.0),
-                                          topLeft: Radius.circular(8.0),
-                                        ),
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                              'images/shot1.png',
-                                            ),
-                                            fit: BoxFit.cover),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          isFavorite = !isFavorite;
-                                        });
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Container(
-                                          height: 30,
-                                          width: 30,
-                                          decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: isFavorite
-                                              ? const Center(
-                                                  child: Icon(
-                                                    Icons.favorite,
-                                                    color: Colors.red,
-                                                    size: 18.0,
-                                                  ),
-                                                )
-                                              : const Center(
-                                                  child: Icon(
-                                                    Icons.favorite_border,
-                                                    color: kNeutralColor,
-                                                    size: 18.0,
-                                                  ),
-                                                ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Mobile UI UX design or app design',
-                                        style: kTextStyle.copyWith(color: kNeutralColor, fontWeight: FontWeight.bold),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          const Icon(
-                                            IconlyBold.star,
-                                            color: Colors.amber,
-                                            size: 18.0,
-                                          ),
-                                          const SizedBox(width: 2.0),
-                                          Text(
-                                            '5.0',
-                                            style: kTextStyle.copyWith(color: kNeutralColor),
-                                          ),
-                                          const SizedBox(width: 2.0),
-                                          Text(
-                                            '(520 review)',
-                                            style: kTextStyle.copyWith(color: kLightNeutralColor),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      RichText(
-                                        text: TextSpan(
-                                          text: 'Price: ',
-                                          style: kTextStyle.copyWith(color: kLightNeutralColor),
-                                          children: [
-                                            TextSpan(
-                                              text: '$currencySign${30}',
-                                              style: kTextStyle.copyWith(color: kPrimaryColor, fontWeight: FontWeight.bold),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                        7,
+                        (i) => MyServiceCard(
+                          myservice: Service(
+                            title: catName[i],
+                            rating: '5.0',
+                            level: 'Seller Level - 1',
+                            image: catIcon[i],
+                            price: '40\$',
+                            favorite: false,
+                            name: 'Williams',
+                            ratingcount: '400',
                           ),
                         ),
                       ),

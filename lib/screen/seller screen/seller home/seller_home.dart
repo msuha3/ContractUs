@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:contractus/screen/seller%20screen/seller%20home/seller_home_screen.dart';
 import 'package:contractus/screen/widgets/constant.dart';
-
 import '../orders/seller_orders.dart';
 import '../profile/seller_profile.dart';
 import '../seller messgae/chat_list.dart';
@@ -18,7 +17,7 @@ class SellerHome extends StatefulWidget {
 class _SellerHomeState extends State<SellerHome> {
   int _currentPage = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static const List<Widget> _widgetOptions = <Widget> [
     SellerHomeScreen(),
     ChatScreen(),
     CreateService(),

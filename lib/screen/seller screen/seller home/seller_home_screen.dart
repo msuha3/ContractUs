@@ -6,8 +6,15 @@ import 'package:contractus/screen/seller%20screen/seller%20home/my%20service/ser
 import 'package:contractus/screen/widgets/constant.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../models/service.dart';
+import '../../widgets/analytics/earningscard.dart';
+import '../../widgets/analytics/performancecard.dart';
+import '../../widgets/analytics/statisticscard.dart';
+import '../../widgets/cards/myservicecard.dart';
+import '../../widgets/cards/servicecard.dart';
 import '../../widgets/chart.dart';
 import '../../widgets/data.dart';
+import '../../widgets/list_options/level_selection.dart';
 import '../notification/seller_notification.dart';
 import 'my service/my_service.dart';
 
@@ -19,83 +26,8 @@ class SellerHomeScreen extends StatefulWidget {
 }
 
 class _SellerHomeScreenState extends State<SellerHomeScreen> {
-  //__________performance_time_period_____________________________________________________
-  DropdownButton<String> getPerformancePeriod() {
-    List<DropdownMenuItem<String>> dropDownItems = [];
-    for (String des in period) {
-      var item = DropdownMenuItem(
-        value: des,
-        child: Text(
-          des,
-          style: kTextStyle.copyWith(color: kSubTitleColor),
-        ),
-      );
-      dropDownItems.add(item);
-    }
-    return DropdownButton(
-      icon: const Icon(FeatherIcons.chevronDown),
-      items: dropDownItems,
-      value: selectedPeriod,
-      style: kTextStyle.copyWith(color: kSubTitleColor),
-      onChanged: (value) {
-        setState(() {
-          selectedPeriod = value!;
-        });
-      },
-    );
-  }
 
-  //__________statistics_time_period_____________________________________________________
-  DropdownButton<String> getStatisticsPeriod() {
-    List<DropdownMenuItem<String>> dropDownItems = [];
-    for (String des in staticsPeriod) {
-      var item = DropdownMenuItem(
-        value: des,
-        child: Text(
-          des,
-          style: kTextStyle.copyWith(color: kSubTitleColor),
-        ),
-      );
-      dropDownItems.add(item);
-    }
-    return DropdownButton(
-      icon: const Icon(FeatherIcons.chevronDown),
-      items: dropDownItems,
-      value: selectedStaticsPeriod,
-      style: kTextStyle.copyWith(color: kSubTitleColor),
-      onChanged: (value) {
-        setState(() {
-          selectedStaticsPeriod = value!;
-        });
-      },
-    );
-  }
 
-  //__________earning_time_period_____________________________________________________
-  DropdownButton<String> getEarningPeriod() {
-    List<DropdownMenuItem<String>> dropDownItems = [];
-    for (String des in earningPeriod) {
-      var item = DropdownMenuItem(
-        value: des,
-        child: Text(
-          des,
-          style: kTextStyle.copyWith(color: kSubTitleColor),
-        ),
-      );
-      dropDownItems.add(item);
-    }
-    return DropdownButton(
-      icon: const Icon(FeatherIcons.chevronDown),
-      items: dropDownItems,
-      value: selectedEarningPeriod,
-      style: kTextStyle.copyWith(color: kSubTitleColor),
-      onChanged: (value) {
-        setState(() {
-          selectedEarningPeriod = value!;
-        });
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,295 +100,13 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 15.0),
-                  Container(
-                    padding: const EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      color: kWhite,
-                      borderRadius: BorderRadius.circular(16.0),
-                      border: Border.all(color: kBorderColorTextField),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: kDarkWhite,
-                          blurRadius: 5.0,
-                          spreadRadius: 2.0,
-                          offset: Offset(0, 5),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Performance',
-                              style: kTextStyle.copyWith(color: kNeutralColor, fontWeight: FontWeight.bold),
-                            ),
-                            const Spacer(),
-                            SizedBox(
-                              height: 30,
-                              child: Container(
-                                padding: const EdgeInsets.all(5.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  border: Border.all(color: kLightNeutralColor),
-                                ),
-                                child: DropdownButtonHideUnderline(
-                                  child: getPerformancePeriod(),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 15.0),
-                        Row(
-                          children: const [
-                            Expanded(
-                              flex: 1,
-                              child: Summary(
-                                title: '80 Orders',
-                                subtitle: 'Order Completions',
-                              ),
-                            ),
-                            SizedBox(width: 10.0),
-                            Expanded(
-                              flex: 1,
-                              child: Summary2(
-                                title1: '5.0/',
-                                title2: '5.0',
-                                subtitle: 'Positive Ratings',
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10.0),
-                        Row(
-                          children: const [
-                            Expanded(
-                              flex: 1,
-                              child: Summary(
-                                title: '100% On time',
-                                subtitle: 'On-Time-Delivery',
-                              ),
-                            ),
-                            SizedBox(width: 10.0),
-                            Expanded(
-                              flex: 1,
-                              child: Summary(
-                                title: 'Gigs 6 of 7',
-                                subtitle: 'Total Gig',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  const PerformanceCard(),
                   const SizedBox(height: 20.0),
-                  Container(
-                    padding: const EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      color: kWhite,
-                      borderRadius: BorderRadius.circular(16.0),
-                      border: Border.all(color: kBorderColorTextField),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: kDarkWhite,
-                          blurRadius: 5.0,
-                          spreadRadius: 2.0,
-                          offset: Offset(0, 5),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Statistics',
-                              style: kTextStyle.copyWith(color: kNeutralColor, fontWeight: FontWeight.bold),
-                            ),
-                            const Spacer(),
-                            SizedBox(
-                              height: 30,
-                              child: Container(
-                                padding: const EdgeInsets.all(5.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  border: Border.all(color: kLightNeutralColor),
-                                ),
-                                child: DropdownButtonHideUnderline(
-                                  child: getStatisticsPeriod(),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 15.0),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: RecordStatistics(
-                                dataMap: dataMap,
-                                colorList: colorList,
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: const [
-                                  ChartLegend(
-                                    iconColor: Color(0xFF69B22A),
-                                    title: 'Impressions',
-                                    value: '5.3K',
-                                  ),
-                                  ChartLegend(
-                                    iconColor: Color(0xFF144BD6),
-                                    title: 'Interaction',
-                                    value: '3.5K',
-                                  ),
-                                  ChartLegend(
-                                    iconColor: Color(0xFFFF3B30),
-                                    title: 'Reached-Out',
-                                    value: '2.3K',
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
+                  const StatiscticsCard(),
                   const SizedBox(height: 20.0),
-                  Container(
-                    padding: const EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      color: kWhite,
-                      borderRadius: BorderRadius.circular(16.0),
-                      border: Border.all(color: kBorderColorTextField),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: kDarkWhite,
-                          blurRadius: 5.0,
-                          spreadRadius: 2.0,
-                          offset: Offset(0, 5),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Earnings',
-                              style: kTextStyle.copyWith(color: kNeutralColor, fontWeight: FontWeight.bold),
-                            ),
-                            const Spacer(),
-                            SizedBox(
-                              height: 30,
-                              child: Container(
-                                padding: const EdgeInsets.all(5.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  border: Border.all(color: kLightNeutralColor),
-                                ),
-                                child: DropdownButtonHideUnderline(
-                                  child: getEarningPeriod(),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 15.0),
-                        Row(
-                          children: const [
-                            Expanded(
-                              flex: 1,
-                              child: Summary(
-                                title: '$currencySign${500.00}',
-                                subtitle: 'Total Earnings',
-                              ),
-                            ),
-                            SizedBox(width: 10.0),
-                            Expanded(
-                              flex: 1,
-                              child: Summary(
-                                title: '$currencySign${300.00}',
-                                subtitle: 'Withdraw Earnings',
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10.0),
-                        Row(
-                          children: const [
-                            Expanded(
-                              flex: 1,
-                              child: Summary(
-                                title: '$currencySign${300.00}',
-                                subtitle: 'Current Balance',
-                              ),
-                            ),
-                            SizedBox(width: 10.0),
-                            Expanded(
-                              flex: 1,
-                              child: Summary(
-                                title: '$currencySign${300.00}',
-                                subtitle: 'Active Orders',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  const EarningsCard(),
                   const SizedBox(height: 10.0),
-                  Theme(
-                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                    child: ExpansionTile(
-                      initiallyExpanded: true,
-                      tilePadding: EdgeInsets.zero,
-                      childrenPadding: EdgeInsets.zero,
-                      collapsedIconColor: kLightNeutralColor,
-                      iconColor: kLightNeutralColor,
-                      title: Text(
-                        'Reach Your Next Level',
-                        style: kTextStyle.copyWith(color: kNeutralColor, fontWeight: FontWeight.bold),
-                      ),
-                      children: const [
-                        LevelSummary(
-                          title: 'Level 1',
-                          subTitle: 'Receive and complete at least 30 orders (all time)',
-                          trailing1: '20',
-                          trailing2: '30',
-                        ),
-                        SizedBox(height: 15.0),
-                        LevelSummary(
-                          title: 'Level 2',
-                          subTitle: 'Receive and complete at least 30 orders (all time)',
-                          trailing1: '0',
-                          trailing2: '70',
-                        ),
-                        SizedBox(height: 15.0),
-                        LevelSummary(
-                          title: 'Level 3',
-                          subTitle: 'Receive and complete at least 30 orders (all time)',
-                          trailing1: '0',
-                          trailing2: '120',
-                        ),
-                      ],
-                    ),
-                  ),
+                  const LevelSelection(),
                   const SizedBox(height: 20.0),
                   Row(
                     children: [
@@ -480,128 +130,16 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                     padding: const EdgeInsets.only(bottom: 10.0),
                     itemCount: 10,
                     itemBuilder: (_, i) {
-                      return GestureDetector(
-                        onTap: ()=>const ServiceDetails().launch(context),
-                        child: Container(
-                          height: 205,
-                          width: 156,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(color: kBorderColorTextField),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: kDarkWhite,
-                                blurRadius: 5.0,
-                                spreadRadius: 2.0,
-                                offset: Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Stack(
-                                alignment: Alignment.topRight,
-                                children: [
-                                  Container(
-                                    height: 100,
-                                    width: 156,
-                                    decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(8.0),
-                                        topLeft: Radius.circular(8.0),
-                                      ),
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                            'images/shot1.png',
-                                          ),
-                                          fit: BoxFit.cover),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        isFavorite = !isFavorite;
-                                      });
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Container(
-                                        height: 30,
-                                        width: 30,
-                                        decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: isFavorite
-                                            ? const Center(
-                                                child: Icon(
-                                                  Icons.favorite,
-                                                  color: Colors.red,
-                                                  size: 18.0,
-                                                ),
-                                              )
-                                            : const Center(
-                                                child: Icon(
-                                                  Icons.favorite_border,
-                                                  color: kNeutralColor,
-                                                  size: 18.0,
-                                                ),
-                                              ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Mobile UI UX design or app design',
-                                      style: kTextStyle.copyWith(color: kNeutralColor, fontWeight: FontWeight.bold),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 5.0),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        const Icon(
-                                          IconlyBold.star,
-                                          color: Colors.amber,
-                                          size: 18.0,
-                                        ),
-                                        const SizedBox(width: 2.0),
-                                        Text(
-                                          '5.0',
-                                          style: kTextStyle.copyWith(color: kNeutralColor),
-                                        ),
-                                        const SizedBox(width: 2.0),
-                                        Text(
-                                          '(520 review)',
-                                          style: kTextStyle.copyWith(color: kLightNeutralColor),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 5.0),
-                                    RichText(
-                                      text: TextSpan(
-                                        text: 'Price: ',
-                                        style: kTextStyle.copyWith(color: kLightNeutralColor),
-                                        children: [
-                                          TextSpan(
-                                            text: '$currencySign${30}',
-                                            style: kTextStyle.copyWith(color: kPrimaryColor, fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                      return MyServiceCard(
+                        myservice: Service(
+                          title: catName[i],
+                          rating: '5.0',
+                          level: 'Seller Level - 1',
+                          image: catIcon[i],
+                          price: '40\$',
+                          favorite: false,
+                          name: 'Williams',
+                          ratingcount: '400',
                         ),
                       );
                     },
@@ -617,6 +155,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
 }
 
 class ChartLegend extends StatelessWidget {
+
   const ChartLegend({
     Key? key,
     required this.iconColor,
@@ -634,28 +173,36 @@ class ChartLegend extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+
         Icon(
           Icons.circle,
           size: 16.0,
           color: iconColor,
         ),
+
         const SizedBox(width: 10.0),
+
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             Text(
               title,
               style: kTextStyle.copyWith(color: kSubTitleColor),
             ),
+
             const SizedBox(
               height: 5.0,
             ),
+
             Text(
               value,
               style: kTextStyle.copyWith(color: kNeutralColor, fontWeight: FontWeight.bold),
             ),
+
           ],
         ),
+
       ],
     );
   }

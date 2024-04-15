@@ -9,7 +9,8 @@ import '../client profile/client_profile.dart';
 import 'client_home_screen.dart';
 
 class ClientHome extends StatefulWidget {
-  const ClientHome({Key? key}) : super(key: key);
+  ClientHome({this.signedin = false});
+  bool signedin;
 
   @override
   State<ClientHome> createState() => _ClientHomeState();
@@ -18,20 +19,27 @@ class ClientHome extends StatefulWidget {
 class _ClientHomeState extends State<ClientHome> {
   int _currentPage = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    ClientHomeScreen(),
-    ChatScreen(),
-    JobPost(),
-    ClientOrderList(),
-    ClientProfile(),
-  ];
+  static List<Widget> _widgetOptions = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _widgetOptions = <Widget>[
+      ClientHomeScreen(signedin: widget.signedin,),
+      ChatScreen(),
+      JobPost(),
+      ClientOrderList(),
+      ClientProfile(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhite,
       body: _widgetOptions.elementAt(_currentPage),
-      bottomNavigationBar: Container(
+      bottomNavigationBar: widget.signedin ? Container(
         padding: const EdgeInsets.all(8.0),
         decoration: const BoxDecoration(
             color: kWhite,
@@ -39,7 +47,11 @@ class _ClientHomeState extends State<ClientHome> {
               topRight: Radius.circular(30.0),
               topLeft: Radius.circular(30.0),
             ),
-            boxShadow: [BoxShadow(color: kDarkWhite, blurRadius: 5.0, spreadRadius: 3.0, offset: Offset(0, -2))]),
+            boxShadow: [
+              BoxShadow(
+                  color: kDarkWhite,
+                  blurRadius: 5.0,
+                  spreadRadius: 3.0, offset: Offset(0, -2))]),
         child: BottomNavigationBar(
           elevation: 0.0,
           selectedItemColor: kPrimaryColor,
@@ -74,7 +86,7 @@ class _ClientHomeState extends State<ClientHome> {
           },
           currentIndex: _currentPage,
         ),
-      ),
+      ): const SizedBox(),
     );
   }
 }
